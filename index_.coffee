@@ -20,6 +20,9 @@ class exports.Generator
 
     schema = @options.root_schema unless schema
 
+    if schema.deprecated 
+      return "deprecated"
+
     return schema  unless type(schema) is 'object'
 
     return @enum schema, depth  if schema.enum
@@ -29,7 +32,7 @@ class exports.Generator
 
     switch schema.type
       when 'string', 'number', 'integer', 'boolean', 'array', 'object', 'null'
-        return @[schema.type] schema, depth
+        return @[schema.type] schema, depth 
       else
         if type(schema.type) is 'array'
           return @oneOf schema, depth
@@ -47,7 +50,7 @@ class exports.Generator
       minimum: 0
       maximum: schema.enum.length - 1
     randomIndex = @random 'integer', randomOptions
-    enumValue = schema.enum[randomIndex]
+    enumValue = "string from " + schema.codelist.replace('.csv','') + " codelist"
     @generate enumValue, depth + 1
 
 
