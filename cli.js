@@ -16,4 +16,4 @@ var args = minimist(process.argv.slice(2), {
 
 schema = JSON.parse(fs.readFileSync(args._[0], 'utf8'));
 instance = generate(schema, args);
-console.log(JSON.stringify(instance, null, 4));
+console.log(JSON.stringify(instance, null, 2));
